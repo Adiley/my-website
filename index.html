@@ -2,33 +2,54 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>我的第一個網頁</title>
+    <title>背景顏色自定義</title>
     <style>
         body {
             text-align: center;
-            background-color: #e0f7fa; 
-            font-family: Arial, "Microsoft JhengHei", sans-serif;
-            margin-top: 50px;
+            font-family: Arial, sans-serif;
+            margin-top: 100px;
+            /* 讓背景顏色變換時有平滑的過渡效果 */
+            transition: background-color 0.5s ease;
         }
-        h1 { color: #00796b; }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #00796b;
-            color: white;
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 { color: #333; }
+        input[type="color"] {
+            width: 100px;
+            height: 100px;
             border: none;
-            border-radius: 5px;
-            transition: 0.3s;
+            cursor: pointer;
+            background: none;
         }
-        button:hover {
-            background-color: #004d40;
-        }
+        p { color: #666; font-size: 1.1em; }
     </style>
 </head>
 <body>
-    <h1>歡迎來到我的網站！</h1>
-    <p>這是我親手寫的第一行 HTML。</p>
-    <button onclick="alert('你好！')">點我試試</button>
+
+    <div class="container">
+        <h1>選一個你喜歡的顏色！</h1>
+        <p>點擊下方色塊，即時改變網頁背景：</p>
+        
+        <input type="color" id="colorPicker" value="#e0f7fa" oninput="updateColor()">
+        
+        <p id="colorCode">目前顏色代碼：#e0f7fa</p>
+    </div>
+
+    <script>
+        function updateColor() {
+            // 取得選擇器的顏色值
+            const selectedColor = document.getElementById('colorPicker').value;
+            // 改變 body 的背景顏色
+            document.body.style.backgroundColor = selectedColor;
+            // 更新文字顯示顏色代碼
+            document.getElementById('colorCode').innerText = "目前顏色代碼：" + selectedColor.toUpperCase();
+        }
+    </script>
+
 </body>
 </html>
