@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>我的第一個網頁</title>
+    <meta charset="UTF-8"> <title>我的第一個網頁</title>
     <style>
         body {
             text-align: center;
-            background-color: #e0f7fa; /* 換個顏色 */
+            background-color: #e0f7fa;
             font-family: Arial, sans-serif;
             margin-top: 50px;
         }
@@ -18,13 +18,17 @@
             color: white;
             border: none;
             border-radius: 5px;
+            transition: 0.3s; /* 讓變化更平滑 */
+        }
+        /* 額外加的小特效：滑鼠移上去會變色 */
+        button:hover {
+            background-color: #004d40;
         }
     </style>
 </head>
-<body style="text-align: center; background-color: #f0f0f0;">
+<body>
     <h1>歡迎來到我的網站！</h1>
     <p>這是我親手寫的第一行 HTML。</p>
     <button onclick="alert('你好！')">點我試試</button>
 </body>
-
 </html>
