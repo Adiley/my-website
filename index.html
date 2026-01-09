@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>互動變色網頁</title>
+    <title>自動反色網頁</title>
     <style>
         body {
             text-align: center;
@@ -13,80 +13,72 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: background-color 0.5s ease;
+            transition: background-color 0.3s ease;
             background-color: #f0f0f0;
+            /* 這是關鍵：確保文字容器在背景之上 */
+            position: relative;
         }
 
-        /* 標題與文字 */
-        h1 { color: #333; margin-bottom: 20px; }
+        /* 讓文字自動變成背景的反轉色 */
+        .text-container {
+            mix-blend-mode: difference;
+            color: white; /* 設為白色，在 difference 模式下會完全反轉背景色 */
+        }
 
-        /* 彈出選單的樣式 */
+        h1 { font-size: 3em; margin: 0; }
+        p { font-size: 1.2em; }
+
         #settingsPanel {
-            display: none; /* 預設隱藏 */
-            background: white;
+            display: none;
+            background: rgba(255, 255, 255, 0.9); /* 半透明白色背景 */
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             margin-top: 20px;
+            /* 面板本身不參與反色，否則會看不清楚 */
+            mix-blend-mode: normal; 
         }
 
-        /* 按鈕樣式 */
         button {
             padding: 12px 25px;
-            font-size: 16px;
             cursor: pointer;
             border: none;
             border-radius: 8px;
-            margin: 10px;
-            transition: 0.3s;
-        }
-
-        .btn-open { background-color: #2196F3; color: white; }
-        .btn-open:hover { background-color: #1976D2; }
-
-        .btn-confirm { background-color: #4CAF50; color: white; }
-        .btn-confirm:hover { background-color: #388E3C; }
-
-        input[type="color"] {
-            width: 80px;
-            height: 40px;
-            border: none;
-            cursor: pointer;
-            vertical-align: middle;
+            margin-top: 20px;
+            background-color: #333;
+            color: white;
         }
     </style>
 </head>
 <body>
 
-    <h1>歡迎來到我的互動空間</h1>
-    <p>目前的背景顏色已被鎖定。</p>
+    <div class="text-container">
+        <h1>我是你的對手色</h1>
+        <p>無論背景怎麼變，你都看得到我。</p>
+    </div>
 
-    <button class="btn-open" id="openBtn" onclick="togglePanel(true)">調整背景顏色</button>
+    <button id="openBtn" onclick="togglePanel(true)">調整背景顏色</button>
 
     <div id="settingsPanel">
         <h3>選擇顏色</h3>
         <input type="color" id="colorPicker" value="#f0f0f0" oninput="previewColor()">
         <br><br>
-        <button class="btn-confirm" onclick="togglePanel(false)">確認並鎖定</button>
+        <button onclick="togglePanel(false)" style="background-color: #4CAF50;">確認並鎖定</button>
     </div>
 
     <script>
-        // 切換面板顯示或隱藏
         function togglePanel(show) {
             const panel = document.getElementById('settingsPanel');
             const openBtn = document.getElementById('openBtn');
-            
             if (show) {
                 panel.style.display = 'block';
-                openBtn.style.display = 'none'; // 打開選單時隱藏調整按鈕
+                openBtn.style.display = 'none';
             } else {
                 panel.style.display = 'none';
-                openBtn.style.display = 'inline-block'; // 鎖定後顯示調整按鈕
-                alert("顏色已成功鎖定！");
+                openBtn.style.display = 'inline-block';
             }
         }
 
-        // 預覽顏色
         function previewColor() {
             const color = document.getElementById('colorPicker').value;
             document.body.style.backgroundColor = color;
